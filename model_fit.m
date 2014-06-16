@@ -15,6 +15,7 @@ uy = zeros(m,1);
 for i = 1:1000
     
     % project onto A*x1 + b == y1
+    % TODO: choose 
     x0 = x2 - ux;
     y0 = y2 - uy;
     x1 = (eye(n) + A'*A)\(A'*y0 - A'*b + x0);
@@ -29,6 +30,7 @@ for i = 1:1000
     x0 = x1 + ux;
     x2 = prox_r(x0, rho);
     
+    % dual update
     ux = ux + x1 - x2;
     uy = uy + y1 - y2;
     

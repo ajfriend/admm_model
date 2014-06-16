@@ -1,0 +1,19 @@
+function x = prox_logistic(x0,rho)
+% x = argmin sum(log(1+exp(-x))) + rho/2*norm(x-x0)^2
+% solution method: newtons method to find f(x) == 0 for the function
+% f(x) = x - x0 + (x-x0)*exp(x) - 1/rho
+% f'(x) = 1 + exp(x) + (x-x0)*exp(x)
+
+
+x = (1/2 + rho*x0)./(rho+1/10);
+
+ind = x > 5;
+ind2 = x < -5;
+x(ind) = x0(ind);
+x(ind2) = x0(ind2) + 1/rho;
+
+for i = 1:5
+    x = x - (x - x0 + (x-x0).*exp(x) - 1/rho)./(1 + exp(x) + (x-x0).*exp(x));
+end
+
+end
